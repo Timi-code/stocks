@@ -1,0 +1,15 @@
+<div id="index"></div>
+
+<div class="tool-bar">
+  <!-- <button class="reset" mat-raised-button>重置</button> -->
+  <mat-form-field>
+    <!-- <mat-label>选择指数</mat-label> -->
+    <mat-select [(value)]="selectedCode" (selectionChange)="selectionChange($event)">
+      <mat-option *ngFor="let index of indexs" [value]="index.value">
+        {{ index.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  今日：<span class="today-color">{{ todayTotal }}亿元</span>
+  昨日：<span class="yestoday-color">{{ yestodayTotal }}亿元</span>
+</div>
