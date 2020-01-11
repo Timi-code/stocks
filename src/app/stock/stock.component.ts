@@ -4,6 +4,7 @@ import { StockService } from '@services/stock.service';
 import { forkJoin } from 'rxjs';
 import { transformData } from '@utils/util';
 import { IIndex } from '../index/index.component';
+import { ChartDefaultOptions } from '../common/chart.options';
 
 @Component({
   selector: 'st-stock',
@@ -36,37 +37,9 @@ export class StockComponent implements OnInit {
 
   initChart() {
     this.chart = Highcharts.stockChart('stock', {
-      rangeSelector: {
-        enabled: false
-      },
-      navigator: {
-        enabled: false
-      },
-      scrollbar: {
-        enabled: false
-      },
+      ...ChartDefaultOptions,
       title: {
         text: '量能变化图'
-      },
-      yAxis: {
-        labels: {
-          formatter: function() {
-            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-          }
-        },
-        plotLines: [
-          {
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }
-        ]
-      },
-      tooltip: {
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-        valueDecimals: 2,
-        split: true
       },
       series: this.options
     });
@@ -86,6 +59,10 @@ export class StockComponent implements OnInit {
       this.chart.update({
         series: this.options
       });
+    }, () => {
+      this.chart.hideLoading();
+      alert('股票代码错误');
+      this.code = '';
     });
   }
 }

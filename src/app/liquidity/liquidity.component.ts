@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LiquidityService } from '@services/liquidity.service';
 import * as Highcharts from 'highcharts/highstock';
+import { ChartDefaultOptions } from '../common/chart.options';
 
 export interface ILiquidity {
   date: string;
@@ -38,37 +39,9 @@ export class LiquidityComponent implements OnInit {
 
   initChart() {
     this.chart = Highcharts.stockChart('liquidity', {
-      rangeSelector: {
-        enabled: false
-      },
-      navigator: {
-        enabled: false
-      },
-      scrollbar: {
-        enabled: false
-      },
+      ...ChartDefaultOptions,
       title: {
         text: '流动性溢价因子'
-      },
-      yAxis: {
-        labels: {
-          formatter: function() {
-            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-          }
-        },
-        plotLines: [
-          {
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }
-        ]
-      },
-      tooltip: {
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-        valueDecimals: 2,
-        split: true
       },
       series: this.options
     });
@@ -91,6 +64,9 @@ export class LiquidityComponent implements OnInit {
       this.chart.update({
         series: this.options
       });
+      setTimeout(() => {
+        this.getLiquidityData();
+      }, 3000);
     });
   }
 }

@@ -4,6 +4,7 @@ import { IndexService } from '@services/index.service';
 import { transformData } from '@utils/util';
 import { Subscription, forkJoin } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
+import { ChartDefaultOptions } from '../common/chart.options';
 
 export interface IIndex {
   time: string;
@@ -95,37 +96,9 @@ export class IndexComponent implements OnInit {
 
   initChart() {
     this.chart = Highcharts.stockChart('index', {
-      rangeSelector: {
-        enabled: false
-      },
-      navigator: {
-        enabled: false
-      },
-      scrollbar: {
-        enabled: false
-      },
+      ...ChartDefaultOptions,
       title: {
         text: '量能变化图'
-      },
-      yAxis: {
-        labels: {
-          formatter: function() {
-            return (this.value > 0 ? ' + ' : '') + this.value + '%';
-          }
-        },
-        plotLines: [
-          {
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }
-        ]
-      },
-      tooltip: {
-        pointFormat:
-          '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-        valueDecimals: 2,
-        split: true
       },
       series: this.options
     });
@@ -148,7 +121,6 @@ export class IndexComponent implements OnInit {
       setTimeout(() => {
         this.getTodayData();
       }, 3000);
-      console.log(this.chart.options)
     });
     this.getNowTotalData();
   }
