@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { IndexComponent } from './index/index.component';
 import { StockComponent } from './stock/stock.component';
 import { LiquidityComponent } from './liquidity/liquidity.component';
 import { MoveBoxComponent } from './component/move-box/move-box.component';
+import { AttentionComponent } from './attention/attention.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { MoveBoxComponent } from './component/move-box/move-box.component';
     IndexComponent,
     StockComponent,
     LiquidityComponent,
-    MoveBoxComponent
+    MoveBoxComponent,
+    AttentionComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { MoveBoxComponent } from './component/move-box/move-box.component';
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
