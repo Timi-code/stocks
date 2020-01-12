@@ -15,6 +15,7 @@ export interface ChangeMoeny {
 export class AttentionComponent implements OnInit {
   displayedColumns: string[] = ['display_name', 'money', 'increase'];
   data: ChangeMoeny[];
+  updateTime: number;
   constructor(private attentionService: AttentionService) {}
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class AttentionComponent implements OnInit {
       },
       () => {},
       () => {
+        this.updateTime = Date.now();
         setTimeout(() => {
           this.getMoneyChange();
         }, 3000);
