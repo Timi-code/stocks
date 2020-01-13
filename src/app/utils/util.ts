@@ -7,3 +7,8 @@ export function transformData(data: any[], unity = 100000000) {
   });
   return result;
 }
+
+export function workTime(): boolean {
+  const hour = new Date().getHours();
+  return 9 <= hour && hour < 16;
+}
