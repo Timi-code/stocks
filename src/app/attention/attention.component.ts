@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AttentionService } from '@services/attention.service';
+import { workTime } from '@utils/util';
 
 export interface ChangeMoeny {
   display_name: string;
@@ -25,6 +26,7 @@ export class AttentionComponent implements OnInit {
   getMoneyChange() {
     this.attentionService.getMoneyChange().subscribe(
       (res: ChangeMoeny[]) => {
+        this.updateTime = Date.now();
         this.data = res.map(item => {
           item.money = Math.ceil(item.money / 10000);
           return item;
@@ -32,10 +34,11 @@ export class AttentionComponent implements OnInit {
       },
       () => {},
       () => {
-        this.updateTime = Date.now();
-        setTimeout(() => {
-          this.getMoneyChange();
-        }, 3000);
+        if (workTime()) {
+          setTimeout(() => {
+            this.getMoneyChange();
+          }, 60000);
+        }
       }
     );
   }

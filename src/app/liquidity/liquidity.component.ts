@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LiquidityService } from '@services/liquidity.service';
 import * as Highcharts from 'highcharts/highstock';
 import { ChartDefaultOptions } from '../common/chart.options';
+import { workTime } from '@utils/util';
 
 export interface ILiquidity {
   date: string;
@@ -30,6 +31,7 @@ export class LiquidityComponent implements OnInit {
       data: []
     }
   ];
+  updateTime: number;
   constructor(private liquidityService: LiquidityService) {}
 
   ngOnInit() {
@@ -48,25 +50,33 @@ export class LiquidityComponent implements OnInit {
   }
 
   getLiquidityData() {
-    this.liquidityService.getLiquidityData().subscribe((res: ILiquidity[]) => {
-      this.options[0]['data'] = res.map(item => {
-        return [
-          new Date(item.date).getTime(),
-          +item.liquidity_premium.toFixed(2)
-        ];
-      });
-      this.options[1]['data'] = res.map(item => {
-        return [
-          new Date(item.date).getTime(),
-          +item.liquidity_premium_weighted.toFixed(2)
-        ];
-      });
-      this.chart.update({
-        series: this.options
-      });
-      setTimeout(() => {
-        this.getLiquidityData();
-      }, 3000);
-    });
+    this.liquidityService.getLiquidityData().subscribe(
+      (res: ILiquidity[]) => {
+        this.updateTime = Date.now();
+        this.options[0]['data'] = res.map(item => {
+          return [
+            new Date(item.date).getTime(),
+            +item.liquidity_premium.toFixed(2)
+          ];
+        });
+        this.options[1]['data'] = res.map(item => {
+          return [
+            new Date(item.date).getTime(),
+            +item.liquidity_premium_weighted.toFixed(2)
+          ];
+        });
+        this.chart.update({
+          series: this.options
+        });
+      },
+      () => {},
+      () => {
+        if (workTime()) {
+          setTimeout(() => {
+            this.getLiquidityData();
+          }, 60000);
+        }
+      }
+    );
   }
 }

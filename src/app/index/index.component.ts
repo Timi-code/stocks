@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts/highstock';
 import { IndexService } from '@services/index.service';
-import { transformData } from '@utils/util';
+import { transformData, workTime } from '@utils/util';
 import { Subscription, forkJoin } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
 import { ChartDefaultOptions } from '../common/chart.options';
@@ -78,6 +78,7 @@ export class IndexComponent implements OnInit {
       value: 'ZZ500'
     }
   ];
+  updateTime: number;
 
   todayTotal: number = 0;
   yestodayTotal: number = 0;
@@ -110,6 +111,7 @@ export class IndexComponent implements OnInit {
       this.indexService.getYestodayData(this.selectedCode),
       this.indexService.getTodayData(this.selectedCode)
     ).subscribe(([yestodayData, todayData]) => {
+      this.updateTime = Date.now();
       this.chart.hideLoading();
       yestodayData = transformData(yestodayData as IIndex[]);
       todayData = transformData(todayData as IIndex[]);
@@ -120,7 +122,7 @@ export class IndexComponent implements OnInit {
       });
       setTimeout(() => {
         this.getTodayData();
-      }, 3000);
+      }, 5000);
     });
     this.getNowTotalData();
   }
@@ -141,29 +143,44 @@ export class IndexComponent implements OnInit {
     if (this.todayData && !this.todayData.closed) this.todayData.unsubscribe();
     this.todayData = this.indexService
       .getTodayData(this.selectedCode)
-      .subscribe((res: IIndex[]) => {
-        const data = transformData(res);
-        this.options[1]['data'] = data;
-        this.chart.update({
-          series: this.options
-        });
-        setTimeout(() => {
-          this.getTodayData();
-        }, 3000);
-      });
+      .subscribe(
+        (res: IIndex[]) => {
+          this.updateTime = Date.now();
+          const data = transformData(res);
+          this.options[1]['data'] = data;
+          this.chart.update({
+            series: this.options
+          });
+        },
+        () => {},
+        () => {
+          if (workTime()) {
+            setTimeout(() => {
+              this.getTodayData();
+            }, 5000);
+          }
+        }
+      );
   }
 
   getNowTotalData() {
     if (this.totalData && !this.totalData.closed) this.totalData.unsubscribe();
     this.totalData = this.indexService
       .nowTotalData(this.selectedCode)
-      .subscribe((res: ITotalData) => {
-        this.yestodayTotal = Math.ceil(res.yestoday_data.money / 100000000);
-        this.todayTotal = Math.ceil(res.today_data.money / 100000000);
-        setTimeout(() => {
-          this.getNowTotalData();
-        }, 3000);
-      });
+      .subscribe(
+        (res: ITotalData) => {
+          this.yestodayTotal = Math.ceil(res.yestoday_data.money / 100000000);
+          this.todayTotal = Math.ceil(res.today_data.money / 100000000);
+        },
+        () => {},
+        () => {
+          if (workTime()) {
+            setTimeout(() => {
+              this.getNowTotalData();
+            }, 5000);
+          }
+        }
+      );
   }
 
   selectionChange(change: MatSelectChange) {
