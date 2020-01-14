@@ -42,6 +42,17 @@ export class LiquidityComponent implements OnInit {
   initChart() {
     this.chart = Highcharts.stockChart('liquidity', {
       ...ChartDefaultOptions,
+      tooltip: {
+        shared: true,
+        split: false,
+        formatter: function() {
+          let text = this.points.reduce(function(s: string, point: Highcharts.TooltipFormatterContextObject) {
+            return s + `<br/><span style="color:${point.color}">●</span>` + point.series.name + ': ' + point.y;
+          }, '<b>' + Highcharts.dateFormat('%Y-%m-%d', this.x + 28800000) + '</b>');
+          if (this.points.length === 2) text += `<br/><span style="color:purple">●</span>差额: ${this.points[0].y - this.points[1].y}`
+          return text;
+        }
+      },
       title: {
         text: '流动性溢价因子'
       },
