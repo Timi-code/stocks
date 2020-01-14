@@ -15,15 +15,15 @@ export class StockComponent implements OnInit {
   chart: Highcharts.Chart;
   options: Highcharts.SeriesOptionsType[] = [
     {
-      name: '昨日',
-      type: 'line',
-      color: 'blue',
-      data: []
-    },
-    {
       name: '今日',
       type: 'line',
       color: 'red',
+      data: []
+    },
+    {
+      name: '昨日',
+      type: 'line',
+      color: 'blue',
       data: []
     }
   ];
@@ -56,8 +56,8 @@ export class StockComponent implements OnInit {
         this.chart.hideLoading();
         yestodayData = transformData(yestodayData as IIndex[], 10000);
         todayData = transformData(todayData as IIndex[], 10000);
-        this.options[0]['data'] = yestodayData;
-        this.options[1]['data'] = todayData;
+        this.options[0]['data'] = todayData;
+        this.options[1]['data'] = yestodayData;
         this.chart.update({
           series: this.options
         });
@@ -77,7 +77,7 @@ export class StockComponent implements OnInit {
     this.stockService.getTodayData(this.code).subscribe((res: IIndex[]) => {
       this.updateTime = Date.now();
       const todayData = transformData(res, 10000);
-      this.options[1]['data'] = todayData;
+      this.options[0]['data'] = todayData;
       this.chart.update({
         series: this.options
       });

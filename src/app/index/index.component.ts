@@ -26,15 +26,15 @@ export class IndexComponent implements OnInit {
   chart: Highcharts.Chart;
   options: Highcharts.SeriesOptionsType[] = [
     {
-      name: '昨日',
-      type: 'line',
-      color: 'blue',
-      data: []
-    },
-    {
       name: '今日',
       type: 'line',
       color: 'red',
+      data: []
+    },
+    {
+      name: '昨日',
+      type: 'line',
+      color: 'blue',
       data: []
     }
   ];
@@ -115,8 +115,8 @@ export class IndexComponent implements OnInit {
       this.chart.hideLoading();
       yestodayData = transformData(yestodayData as IIndex[]);
       todayData = transformData(todayData as IIndex[]);
-      this.options[0]['data'] = yestodayData;
-      this.options[1]['data'] = todayData;
+      this.options[0]['data'] = todayData;
+      this.options[1]['data'] = yestodayData;
       this.chart.update({
         series: this.options
       });
@@ -132,7 +132,7 @@ export class IndexComponent implements OnInit {
       .getYestodayData(this.selectedCode)
       .subscribe((res: IIndex[]) => {
         const data = transformData(res);
-        this.options[0]['data'] = data;
+        this.options[1]['data'] = data;
         this.chart.update({
           series: this.options
         });
@@ -147,7 +147,7 @@ export class IndexComponent implements OnInit {
         (res: IIndex[]) => {
           this.updateTime = Date.now();
           const data = transformData(res);
-          this.options[1]['data'] = data;
+          this.options[0]['data'] = data;
           this.chart.update({
             series: this.options
           });
