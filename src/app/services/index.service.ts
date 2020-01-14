@@ -35,6 +35,14 @@ export class IndexService {
       .get('/api/get_current_money_compare.php', {
         params: { code: code }
       })
-      .pipe(retry(3));
+      .pipe(
+        map(data => {
+          if (!data) {
+            throw new Error();
+          }
+          return data;
+        }),
+        retry(3)
+      );
   }
 }
