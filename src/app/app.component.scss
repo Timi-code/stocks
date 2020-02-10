@@ -1,4 +1,4 @@
-:host {
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -7,4 +7,17 @@
 
 st-move-box {
     margin-top: 40px;
+}
+
+.copy-right {
+    margin-top: 40px;
+    text-align: center;
+    line-height: 3;
+    font-size: 14px;
+    color: #73777a;
+    img {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
 }
