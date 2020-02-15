@@ -1,0 +1,7 @@
+<p *ngIf="updateTime" class="update-time">最后更新时间: {{ updateTime | date: 'HH:mm:ss' }}</p>
+<div id="hot"></div>
+<div class="tool-bar">
+    <mat-form-field>
+        <input matInput placeholder="Enter a stock" [(ngModel)]="code" (keyup.enter)="getSecurityHot()">
+    </mat-form-field>
+</div>

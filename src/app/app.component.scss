@@ -1,23 +1,32 @@
-.container {
+:host {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-}
+    flex-direction: column;
 
-st-move-box {
-    margin-top: 40px;
-}
+    nav {
+        text-align: center;
+        padding: 10px;
+        button {
+            margin: 0 10px;
 
-.copy-right {
-    margin-top: 40px;
-    text-align: center;
-    line-height: 3;
-    font-size: 14px;
-    color: #73777a;
-    img {
-        width: 20px;
-        height: 20px;
-        margin-right: 6px;
+            &.active {
+                color: #fff;
+                background-color: #ff4081;
+            }
+        }
+    }
+
+    .copy-right {
+        flex: 1;
+        margin-top: 40px;
+        text-align: center;
+        line-height: 3;
+        font-size: 14px;
+        color: #73777a;
+        img {
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+        }
     }
 }
+

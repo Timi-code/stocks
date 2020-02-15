@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ComponentLevelService } from '@services/component-level.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { ComponentLevelService } from '@services/component-level.service';
   styleUrls: ['./move-box.component.scss']
 })
 export class MoveBoxComponent implements OnInit {
+  @Input()
+  height: string = '34vw';
   index: number = 1;
   constructor(private levelService: ComponentLevelService) {}
 

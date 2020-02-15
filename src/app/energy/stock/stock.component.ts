@@ -4,7 +4,7 @@ import { StockService } from '@services/stock.service';
 import { forkJoin } from 'rxjs';
 import { transformData, workTime } from '@utils/util';
 import { IIndex } from '../index/index.component';
-import { ChartDefaultOptions } from '../common/chart.options';
+import { ChartDefaultOptions } from '../../common/chart.options';
 
 @Component({
   selector: 'st-stock',

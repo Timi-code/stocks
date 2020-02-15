@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LiquidityService } from '@services/liquidity.service';
 import * as Highcharts from 'highcharts/highstock';
-import { ChartDefaultOptions } from '../common/chart.options';
+import { ChartDefaultOptions } from '../../common/chart.options';
 import { workTime } from '@utils/util';
 
 export interface ILiquidity {

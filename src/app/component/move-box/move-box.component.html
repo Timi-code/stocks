@@ -1,4 +1,4 @@
-<div class="move-box" [ngStyle]="{'z-index': index}" cdkDrag>
+<div class="move-box" [ngStyle]="{'z-index': index, 'height': height}" cdkDrag>
   <div class="move-handle" cdkDragHandle (mousedown)="clickHandle()">
     <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="closeHandle($event)">close</mat-icon>
   </div>

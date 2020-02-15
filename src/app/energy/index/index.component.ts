@@ -4,7 +4,7 @@ import { IndexService } from '@services/index.service';
 import { transformData, workTime } from '@utils/util';
 import { Subscription, forkJoin } from 'rxjs';
 import { MatSelectChange } from '@angular/material/select';
-import { ChartDefaultOptions } from '../common/chart.options';
+import { ChartDefaultOptions } from '../../common/chart.options';
 
 export interface IIndex {
   time: string;
