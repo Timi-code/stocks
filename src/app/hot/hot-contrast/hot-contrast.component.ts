@@ -51,8 +51,14 @@ export class HotContrastComponent implements OnInit {
       .subscribe((result: ISecurityHot[]) => {
         this.updateTime = Date.now();
         this.chart.hideLoading();
-        this.options[0]['data'] = result.map(item => item.count)
+        this.options[0]['data'] = result.map(item => {
+          return [item.day, item.count]
+        })
+        const categories = result.map(item => item.day);
         this.chart.update({
+          xAxis: {
+            categories: categories
+          },
           series: this.options
         });
       }),
