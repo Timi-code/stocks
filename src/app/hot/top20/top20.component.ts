@@ -18,7 +18,7 @@ export interface IHot {
 export class Top20Component implements OnInit {
   data: IHot[];
   updateTime: number;
-  displayedColumns: string[] = ['day', 'display_name', 'count', 'increase']
+  displayedColumns: string[] = ['day', 'display_name', 'code', 'count', 'increase']
 
   constructor(
     private hotService: HotService

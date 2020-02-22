@@ -12,6 +12,12 @@
         <td mat-cell *matCellDef="let element">{{ element.display_name }}</td>
     </ng-container>
 
+    <!-- code Column -->
+    <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef style="width: 120px;">代码</th>
+        <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+    </ng-container>
+
     <!-- money Column -->
     <ng-container matColumnDef="count">
         <th mat-header-cell *matHeaderCellDef>热度</th>
@@ -21,7 +27,7 @@
     <!-- increase Column -->
     <ng-container matColumnDef="increase">
         <th mat-header-cell *matHeaderCellDef>期间涨跌幅</th>
-        <td mat-cell *matCellDef="let element">{{ element.increase | percent: '1.4' }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.increase | percent: '1.2' }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
