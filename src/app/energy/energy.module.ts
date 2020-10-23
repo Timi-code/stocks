@@ -8,6 +8,7 @@ import { StockComponent } from './stock/stock.component';
 import { LiquidityComponent } from './liquidity/liquidity.component';
 import { AttentionComponent } from './attention/attention.component';
 import { ShareModule } from '../share/share.module';
+import { IncrDiffComponent } from './incr-diff/incr-diff.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ShareModule } from '../share/share.module';
     IndexComponent,
     StockComponent,
     LiquidityComponent,
-    AttentionComponent
+    AttentionComponent,
+    IncrDiffComponent
   ],
   imports: [
     CommonModule,
