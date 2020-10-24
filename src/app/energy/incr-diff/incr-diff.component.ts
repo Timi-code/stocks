@@ -56,10 +56,10 @@ export class IncrDiffComponent implements OnInit {
 
   initData() {
     this.chart.showLoading();
-    forkJoin(
+    forkJoin([
       this.incrService.incrDiffYestoday(),
       this.incrService.incrDiffToday()
-    ).subscribe(([yestodayData, todayData]) => {
+    ]).subscribe(([yestodayData, todayData]) => {
       this.updateTime = Date.now();
       this.chart.hideLoading();
       const yData = yestodayData.map(item => {
@@ -74,7 +74,6 @@ export class IncrDiffComponent implements OnInit {
       })
       this.options[0]['data'] = tData;
       this.options[1]['data'] = yData;
-      console.log(this.options)
       this.chart.update({
         series: this.options
       });

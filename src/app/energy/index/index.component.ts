@@ -107,10 +107,10 @@ export class IndexComponent implements OnInit {
 
   initData() {
     this.chart.showLoading();
-    forkJoin(
+    forkJoin([
       this.indexService.getYestodayData(this.selectedCode),
       this.indexService.getTodayData(this.selectedCode)
-    ).subscribe(([yestodayData, todayData]) => {
+    ]).subscribe(([yestodayData, todayData]) => {
       this.updateTime = Date.now();
       this.chart.hideLoading();
       yestodayData = transformData(yestodayData as IIndex[]);

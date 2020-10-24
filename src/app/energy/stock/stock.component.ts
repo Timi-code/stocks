@@ -48,10 +48,10 @@ export class StockComponent implements OnInit {
 
   getStock() {
     this.chart.showLoading();
-    forkJoin(
+    forkJoin([
       this.stockService.getYestodayData(this.code),
       this.stockService.getTodayData(this.code)
-    ).subscribe(
+    ]).subscribe(
       ([yestodayData, todayData]) => {
         this.chart.hideLoading();
         yestodayData = transformData(yestodayData as IIndex[], 10000);
