@@ -1,11 +1,22 @@
 <main>
   <nav>
-    <button mat-raised-button routerLink="/energy" routerLinkActive="active">首页</button>
-    <button mat-raised-button routerLink="/hot" routerLinkActive="active">次页</button>
+    <button mat-raised-button routerLink="/energy" routerLinkActive="active">
+      首页
+    </button>
+    <button mat-raised-button routerLink="/hot" routerLinkActive="active">
+      次页
+    </button>
   </nav>
   <router-outlet></router-outlet>
 </main>
 <footer>
-  <hr>
-  <p class="copy-right"><img src="../assets/g1.gif"><img src="../assets/g2.png">京公网安备20003717号</p>
+  <hr />
+  <div class="copy-right">
+    <p>
+      <img src="../assets/g1.gif" /><img src="../assets/g2.png" />
+      <a href="https://beian.miit.gov.cn/" target="_blank"
+        >京公网安备20003717号</a
+      >
+    </p>
+  </div>
 </footer>
